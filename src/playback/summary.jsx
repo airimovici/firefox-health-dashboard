@@ -61,6 +61,12 @@ const styles = {
     width: '100%',
     height: '3rem',
   },
+  noData: {
+    fontSize: '1rem',
+    backgroundColor: '#d3d3d3',
+    width: '100%',
+    height: '3rem',
+  },
 };
 const SPECIAL_SIZES = [
   { id: '480p30', label: '480p' }, // .4M pixels
@@ -73,6 +79,7 @@ const lookupType = {
   0: 'pass',
   1: 'bad',
   2: 'fail',
+  3: 'noData',
 };
 
 class PlaybackSummary extends React.Component {
@@ -135,7 +142,8 @@ class PlaybackSummary extends React.Component {
             selectFrom(speeds)
               .map(({ speed, loss }) => {
                 if (speed === 1) {
-                  if (missing(loss) || loss > 1) return 2;
+                  if (missing(loss)) return 3;
+                  if (loss > 1) return 2;
 
                   return 0;
                 }
