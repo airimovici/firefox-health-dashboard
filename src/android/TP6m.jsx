@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import { exists, missing } from '../vendor/utils';
 import { selectFrom } from '../vendor/vectors';
-import { BROWSER_PLATFORMS, TP6_COMBOS, TP6_TESTS } from '../windows/config';
+import { BROWSER_PLATFORMS, TP6_COMBOS, TP6_TESTS, TP6_TESTS_DATA } from '../windows/config';
 import { withNavigation } from '../vendor/components/navigation';
 import Picker from '../vendor/components/navigation/Picker';
 import DashboardPage from '../utils/DashboardPage';
@@ -106,7 +106,7 @@ class TP6M extends React.Component {
 
   render() {
     const {
-      classes, navigation, test, browserPlatform, past, ending,
+      classes, navigation, test, browserPlatform, past, ending, testSource,
     } = this.props;
     const { browser, platform } = BROWSER_PLATFORMS.where({ id: browserPlatform }).first();
     const timeDomain = new TimeDomain({ past, ending, interval: 'day' });
@@ -130,6 +130,16 @@ class TP6M extends React.Component {
       .first()
       .label;
 
+    const liveTestFilter = selectFrom(TP6_TESTS_DATA).where({ test }).first().testFilter;
+    const livePlatformFilter = {
+      eq: {
+        platform: [
+          'android-hw-g5-7-0-arm7-api-16',
+          'android-hw-g5-7-0-arm7-api-16-shippable',
+        ],
+      },
+    };
+
     return (
       <DashboardPage key={subtitle} title="TP6 Mobile" subtitle={subtitle}>
         <Section title="Details by site">
@@ -137,6 +147,32 @@ class TP6M extends React.Component {
             <Grid item xs={6} className={classes.chart}>
               {navigation}
             </Grid>
+
+            {testSource === 'live' && (
+            <Grid item xs={6} className={classes.chart}>
+              <PerfherderGraphContainer
+                timeDomain={timeDomain}
+                key="live example"
+                title="live example"
+                series={[
+                  // {
+                  //   label: 'fenix',
+                  //   filter: {
+                  //     and: [liveTestFilter, livePlatformFilter, { eq: { suite: 'google', framework: 13, repo: 'mozilla-central', application: 'fenix' } }, { eq: { live: true, cold: true } }],
+                  //   },
+                  // },
+                  {
+                    label: 'chrome-m',
+                    filter: {
+                      and: [liveTestFilter, livePlatformFilter, { eq: { suite: 'google-cold', framework: 13, repo: 'mozilla-central', application: 'chrome-m' } }, { eq: { live: true} }],
+                    },
+                  },
+                ]}
+                missingDataInterval={7}
+              />
+            </Grid>
+            )}
+
             <Grid item xs={6} className={classes.chart}>
               {data && (
                 <ChartJSWrapper
@@ -202,6 +238,7 @@ TP6M.propTypes = {
   }).isRequired,
   test: PropTypes.string.isRequired,
   browserPlatform: PropTypes.string.isRequired,
+  testSource: PropTypes.string.isRequired,
 };
 
 const nav = [
@@ -225,6 +262,16 @@ const nav = [
       .toArray(),
   },
   ...timePickers,
+  {
+    type: Picker,
+    id: 'testSource',
+    label: 'Source',
+    defaultValue: 'recorded',
+    options: [
+      { id: 'recorded', label: 'recorded' },
+      { id: 'live', label: 'live' },
+    ],
+  },
 ];
 
 export default withNavigation(nav)(withStyles(styles)(TP6M));
