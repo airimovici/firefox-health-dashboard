@@ -5,7 +5,9 @@ import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import { exists, missing } from '../vendor/utils';
 import { selectFrom } from '../vendor/vectors';
-import { BROWSER_PLATFORMS, TP6_COMBOS, TP6_TESTS, TP6_TESTS_DATA } from '../windows/config';
+import {
+  BROWSER_PLATFORMS, TP6_COMBOS, TP6_TESTS, TP6_TESTS_DATA,
+} from '../windows/config';
 import { withNavigation } from '../vendor/components/navigation';
 import Picker from '../vendor/components/navigation/Picker';
 import DashboardPage from '../utils/DashboardPage';
@@ -164,7 +166,11 @@ class TP6M extends React.Component {
                   {
                     label: 'chrome-m',
                     filter: {
-                      and: [liveTestFilter, livePlatformFilter, { eq: { suite: 'google-cold', framework: 13, repo: 'mozilla-central', application: 'chrome-m' } }, { eq: { live: true} }],
+                      and: [liveTestFilter, livePlatformFilter, {
+                        eq: {
+                          suite: 'google-cold', framework: 13, repo: 'mozilla-central', application: 'chrome-m',
+                        },
+                      }, { eq: { live: true } }],
                     },
                   },
                 ]}

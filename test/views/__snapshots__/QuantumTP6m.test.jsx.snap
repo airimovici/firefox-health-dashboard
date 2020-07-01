@@ -401,6 +401,57 @@ exports[`renders correctly 1`] = `
                 </div>
               </div>
             </form>
+            <form
+              autoComplete="off"
+              className="Picker-root-10"
+            >
+              <div
+                className="MuiFormControl-root MuiTextField-root"
+              >
+                <label
+                  className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled"
+                  data-shrink={true}
+                >
+                  Source
+                </label>
+                <div
+                  className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+                  onClick={[Function]}
+                >
+                  <div
+                    aria-haspopup="listbox"
+                    aria-labelledby="mui-component-select-testSource"
+                    className="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+                    id="mui-component-select-testSource"
+                    onBlur={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onMouseDown={[Function]}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    recorded
+                  </div>
+                  <input
+                    autoFocus={false}
+                    name="testSource"
+                    onAnimationStart={[Function]}
+                    type="hidden"
+                    value="recorded"
+                  />
+                  <svg
+                    aria-hidden={true}
+                    className="MuiSvgIcon-root MuiSelect-icon"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M7 10l5 5 5-5z"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
         <div
