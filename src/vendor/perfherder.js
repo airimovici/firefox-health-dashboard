@@ -67,21 +67,6 @@ const getFramework = async ({ repo, framework }) => {
           let lowerIsBetter = lower_is_better;
           let unit = 'Score';
 
-          if (Boolean(meta.extra_options) && meta.extra_options.includes('live') && meta.application === 'chrome-m') {
-            console.log('-------------------------------------');
-            console.log('live', meta.application, repo, framework, meta);
-          }
-
-          // if (meta.application === 'fenix' && Boolean(meta.extra_options) && meta.extra_options.includes('live')) {
-          //   console.log('-------------------------------------');
-          //   console.log('fenix-live', repo, framework, meta);
-          // }
-          //
-          // if (meta.application === 'firefox' && Boolean(meta.extra_options) && meta.extra_options.includes('live')) {
-          //   console.log('-------------------------------------');
-          //   console.log('firefox-live', repo, framework, meta);
-          // }
-
           if (suite.includes('youtube-playback')) {
             lowerIsBetter = true;
             unit = 'count';
